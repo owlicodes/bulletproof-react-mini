@@ -16,27 +16,27 @@ const getUser = async (): Promise<User | null> => {
 };
 
 const logout = (): Promise<void> => {
-  return api.post("/auth/logout");
+  return api.post("/v1/auth/logout");
 };
 
 export const loginInputSchema = z.object({
-  email: z.string().min(1, "Required").email("Invalid email"),
-  password: z.string().min(8, "Required"),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
+  password: z.string().min(8, "Password must be atleast 8 characters."),
 });
 export type LoginInput = z.infer<typeof loginInputSchema>;
 const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return api.post("/auth/login", data);
+  return api.post("/v1/auth/login", data);
 };
 
 export const registerInputSchema = z.object({
-  email: z.string().min(1, "Required"),
-  password: z.string().min(1, "Required"),
+  email: z.string().min(1, "Email is required").email("Invalid email"),
+  password: z.string().min(8, "Password must be atleast 8 characters."),
 });
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 const registerWithEmailAndPassword = (
   data: RegisterInput,
 ): Promise<AuthResponse> => {
-  return api.post("/auth/register", data);
+  return api.post("/v1/auth/register", data);
 };
 
 const authConfig = {
