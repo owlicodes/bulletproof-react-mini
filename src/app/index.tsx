@@ -1,9 +1,10 @@
 import AppProvider from "./provider";
+import { AppRouter } from "./router";
 
 const App = () => {
   return (
     <AppProvider>
-      <h1>Bulletproof React Mini</h1>
+      <AppRouter />
     </AppProvider>
   );
 };
