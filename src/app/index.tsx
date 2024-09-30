@@ -1,8 +1,10 @@
+import AppProvider from "./provider";
+
 const App = () => {
   return (
-    <div>
+    <AppProvider>
       <h1>Bulletproof React Mini</h1>
-    </div>
+    </AppProvider>
   );
 };
 
