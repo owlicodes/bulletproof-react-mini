@@ -40,13 +40,12 @@ export const createAppRouter = (queryClient: QueryClient) =>
           path: "",
           lazy: async () => {
             const { DashboardRoute } = await import("./routes/app/dashboard");
-
-            console.log(
-              "we will use queryClient here to fetch the users/me data.",
-            );
-            console.log(queryClient);
-
             return { Component: DashboardRoute };
+          },
+
+          loader: async () => {
+            const { dashboardLoader } = await import("./routes/app/dashboard");
+            return dashboardLoader(queryClient)();
           },
         },
       ],
