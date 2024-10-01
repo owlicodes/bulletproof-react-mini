@@ -12,12 +12,12 @@ export const LandingRoute = () => {
     if (user.data) {
       navigate(PATHS.app.root);
     } else {
-      navigate(PATHS.auth.register);
+      navigate(PATHS.auth.login);
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto space-y-4 text-gray-700">
+    <div className="max-w-lg mx-auto space-y-4 text-gray-700 mt-4">
       <h1 className="text-2xl font-semibold">Bulletproof React Mini</h1>
       <p>
         This is an mini version of{" "}
