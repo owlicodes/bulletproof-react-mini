@@ -23,3 +23,7 @@ Bulletproof React offers a simple, scalable, and powerful architecture for build
 To make it easier to get started, I created a mini version of Bulletproof React, which serves as a solid base for any new application. I’ve removed some features that you can always add later if needed. I've removed Storybook, Playwright, and the implementation of Mock Service Worker (MSW) on the client side, though we will still use MSW for unit testing.
 
 Full credit goes to [alan2207](https://github.com/alan2207) for providing this gem. All I've done is make it less daunting for new React developers.
+
+## Backend
+
+I have modified the api client here just a bit to work with my [nestjs-starter-kit](https://github.com/owlicodes/nestjs-start-prisma). You can use the project to serve as your backend.
