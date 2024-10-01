@@ -39,6 +39,7 @@ const registerWithEmailAndPassword = async (
 ): Promise<AuthResponse> => {
   const response = await api.post("/v1/auth/register", data);
   localStorage.setItem("accessToken", response.data.tokens.accessToken);
+  localStorage.setItem("refreshToken", response.data.tokens.refreshToken);
   return new Promise((resolve) => resolve(response.data));
 };
 
