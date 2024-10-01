@@ -1,5 +1,6 @@
 import Axios, { InternalAxiosRequestConfig } from "axios";
 
+import { useNotifications } from "@/stores/notifications-store";
 import { env } from "@/config/env";
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
@@ -23,6 +24,13 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    const message = error.response?.data?.message || error.message;
+    useNotifications.getState().addNotification({
+      type: "error",
+      title: "Error",
+      message,
+    });
+
     if (error.response?.status === 401) {
       const searchParams = new URLSearchParams();
       const redirectTo = searchParams.get("redirectTo");

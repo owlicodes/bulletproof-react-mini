@@ -8,6 +8,7 @@ import { queryConfig } from "@/lib/react-query";
 import { Spinner } from "@/components/ui/spinner";
 import { MainErrorFallback } from "@/components/errors/main";
 import { AuthLoader } from "@/lib/auth";
+import { Notifications } from "@/components/ui/notifications";
 
 type AppProviderProps = {
   children: React.ReactNode;
@@ -33,6 +34,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>
             {import.meta.env.DEV && <ReactQueryDevtools />}
+            <Notifications />
             <AuthLoader
               renderLoading={() => (
                 <div className="flex h-screen w-screen items-center justify-center">

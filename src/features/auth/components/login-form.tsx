@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -62,7 +63,15 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit" disabled={login.isPending}>
+          {login.isPending ? (
+            <span className="flex items-center gap-2">
+              <LoaderIcon className="w-4 h-4 animate-spin" /> Logging in...
+            </span>
+          ) : (
+            <span>Login</span>
+          )}
+        </Button>
       </form>
     </Form>
   );

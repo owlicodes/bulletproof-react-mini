@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -62,7 +63,15 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Register</Button>
+        <Button type="submit" disabled={register.isPending}>
+          {register.isPending ? (
+            <span className="flex items-center gap-2">
+              <LoaderIcon className="w-4 h-4 animate-spin" /> Registering...
+            </span>
+          ) : (
+            <span>Submit</span>
+          )}
+        </Button>
       </form>
     </Form>
   );
