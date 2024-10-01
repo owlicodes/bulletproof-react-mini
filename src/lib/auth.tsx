@@ -15,6 +15,7 @@ const getUser = async (): Promise<User> => {
 
 const logout = (): Promise<void> => {
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
 
   // return api.post("/v1/auth/logout"); you can also call a logout api if needed
   return new Promise((resolve) => resolve());
@@ -25,8 +26,13 @@ export const loginInputSchema = z.object({
   password: z.string().min(8, "Password must be atleast 8 characters."),
 });
 export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return api.post("/v1/auth/login", data);
+const loginWithEmailAndPassword = async (
+  data: LoginInput,
+): Promise<AuthResponse> => {
+  const response = await api.post("/v1/auth/login", data);
+  localStorage.setItem("accessToken", response.data.tokens.accessToken);
+  localStorage.setItem("refreshToken", response.data.tokens.refreshToken);
+  return new Promise((resolve) => resolve(response.data));
 };
 
 export const registerInputSchema = z.object({
