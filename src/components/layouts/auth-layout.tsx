@@ -1,9 +1,9 @@
-import * as React from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Head } from "../seo/head";
 import { PATHS } from "@/app/paths";
+import { useUser } from "@/lib/auth";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,9 +11,7 @@ type LayoutProps = {
 };
 
 export const AuthLayout = ({ children, title }: LayoutProps) => {
-  const user = {
-    data: null,
-  };
+  const user = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {

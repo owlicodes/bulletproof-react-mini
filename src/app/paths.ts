@@ -5,7 +5,7 @@ export const PATHS = {
     login: "/auth/login",
   },
   app: {
-    root: "/",
+    root: "/app",
     dashboard: "/app/dashboard",
   },
 };

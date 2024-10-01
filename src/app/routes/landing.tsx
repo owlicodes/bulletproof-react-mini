@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/lib/auth";
 import { PATHS } from "../paths";
 
 export const LandingRoute = () => {
+  const user = useUser();
   const navigate = useNavigate();
+
+  const handleStart = () => {
+    if (user.data) {
+      navigate(PATHS.app.root);
+    } else {
+      navigate(PATHS.auth.register);
+    }
+  };
 
   return (
     <div className="max-w-lg mx-auto space-y-4 text-gray-700">
@@ -44,7 +54,7 @@ export const LandingRoute = () => {
         the client side. We will be using it however for unit testing.
       </p>
 
-      <Button onClick={() => navigate(PATHS.auth.register)}>Get Started</Button>
+      <Button onClick={handleStart}>Get Started</Button>
     </div>
   );
 };
