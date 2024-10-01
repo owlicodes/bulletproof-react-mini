@@ -8,15 +8,16 @@ import { AuthResponse, User } from "@/types/api";
 // api call definitions for auth (types, schemas, requests):
 // these are not part of features as this is a module shared across features
 
-const getUser = async (): Promise<User | null> => {
-  // const response = await api.get("/auth/me");
-  // return response.data;
-
-  return null;
+const getUser = async (): Promise<User> => {
+  const response = await api.get("/v1/users/me");
+  return response.data;
 };
 
 const logout = (): Promise<void> => {
-  return api.post("/v1/auth/logout");
+  localStorage.removeItem("accessToken");
+
+  // return api.post("/v1/auth/logout"); you can also call a logout api if needed
+  return new Promise((resolve) => resolve());
 };
 
 export const loginInputSchema = z.object({
@@ -33,10 +34,12 @@ export const registerInputSchema = z.object({
   password: z.string().min(8, "Password must be atleast 8 characters."),
 });
 export type RegisterInput = z.infer<typeof registerInputSchema>;
-const registerWithEmailAndPassword = (
+const registerWithEmailAndPassword = async (
   data: RegisterInput,
 ): Promise<AuthResponse> => {
-  return api.post("/v1/auth/register", data);
+  const response = await api.post("/v1/auth/register", data);
+  localStorage.setItem("accessToken", response.data.tokens.accessToken);
+  return new Promise((resolve) => resolve(response.data));
 };
 
 const authConfig = {

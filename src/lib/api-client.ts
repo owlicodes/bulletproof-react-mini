@@ -7,6 +7,9 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
     config.headers.Accept = "application/json";
   }
 
+  const accessToken = localStorage.getItem("accessToken");
+  config.headers.Authorization = `Bearer ${accessToken}`;
+
   return config;
 }
 
@@ -17,7 +20,7 @@ export const api = Axios.create({
 api.interceptors.request.use(authRequestInterceptor);
 api.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
   (error) => {
     if (error.response?.status === 401) {
